@@ -3,27 +3,30 @@ import { MdOutlinePushPin } from 'react-icons/md'
 import { MdCreate, MdDelete } from 'react-icons/md'
 
 const ResumeCard = () => {
-  return (
-    <div className="border rounded p-4 bg-white hover:shadow-xl transition-all ease-in-out ">
-        <div className='flex items-center justify-between'>
-            <div>
-                <h6 className="text-sm font-medium">title</h6>
-                <span className="text-x5 text-slate-500">date 2-55</span>
+    return (
+        <div className="card border rounded p-3 bg-white shadow-sm transition">
+            <div className="d-flex justify-content-between align-items-start">
+                <div>
+                    <h6 className="mb-1 small fw-medium">title</h6>
+                    <small className="text-muted">date 2-55</small>
+                </div>
+                <MdOutlinePushPin className="icon-btn cursor-pointer" />
             </div>
-            <MdOutlinePushPin className={`icon-btn `} />
 
-        </div>
-        <p className='text-xs text-slate-600 mt-2'>Lorem ipsum dolor sit amet consectetur, a quos accusantium at.</p>
+            <p className="small text-muted mt-2 mb-0">
+                Lorem ipsum dolor sit amet consectetur, a quos accusantium at.
+            </p>
 
-        <div className='flex items-center justify-between mt-2'>
-            <div className="text-xs text-slate-500">tagss</div>
-            <div className="flex items-center gap-2">
-                <MdCreate className=" icon-btn hover:text-green-600"  />
-                <MdDelete className=" icon-btn hover:text-red-500"  />
+            <div className="d-flex justify-content-between align-items-center mt-3">
+                <small className="text-muted">tagss</small>
+                <div className="d-flex gap-2">
+                    <MdCreate className="icon-btn text-muted cursor-pointer hover-text-success" />
+                    <MdDelete className="icon-btn text-muted cursor-pointer hover-text-danger" />
+                </div>
             </div>
         </div>
-    </div>
-  )
+
+    )
 }
 
 export default ResumeCard;
