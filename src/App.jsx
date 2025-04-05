@@ -8,8 +8,8 @@ function App() {
   const routes =(
     <Router>
       <Routes>
-        <Route path="/dashboard"  element={<Home />} />
         <Route path="/"  element={<Login />} />
+        <Route path="/dashboard"  element={<Home />} />
         <Route path="/signup" element={<SignUp />} />
       </Routes>
     </Router>
