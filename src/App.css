@@ -10,3 +10,61 @@ body{
     background-color: #fdfdfd;
     overflow-x: hidden;
 }
+
+/*for model to add update employers*/
+/* Modal Overlay */
+.modal-overlay {
+    position: fixed ;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5); /* Dark background */
+    display: none; /* Hidden by default */
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    overflow: scroll;
+}
+
+/* Show Modal */
+.modal-overlay.show {
+    display: flex; /* Show the modal when class "show" is added */
+}
+
+/* Modal Content Box */
+.modal-content {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 10px;
+    width: 500px; /* You can adjust the width */
+    max-width: 90%;
+    height: 90vh;
+    overflow-x: scroll;
+    position: relative;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Added a larger shadow for more depth */
+    transition: all 0.3s ease-in-out; /* Smooth transition for scaling */
+}
+
+/* Close Button */
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #333;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+.close-btn:hover {
+    color: #e74c3c; /* Red color on hover for better visibility */
+}
+
+/* Scale the modal when shown */
+.modal-content.show {
+    transform: scale(1); /* Scaling effect */
+}

@@ -41,7 +41,7 @@ const AddEditResume = ({ }) => {
   };
 
   return (
-    <div className="position-relative p-3 rounded shadow-sm bg-white w-75 mx-auto">
+    <div className="position-relative p-3 rounded shadow-sm bg-white w-full mx-auto" style={{width: '100%'}}>
       <h4 className="text-center mb-4">{'Add Resume'}</h4>
 
       <div className="d-flex flex-column gap-2">
