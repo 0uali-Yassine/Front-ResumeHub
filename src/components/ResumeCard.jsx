@@ -6,7 +6,7 @@ const ResumeCard = ({ name, img, date, description, experience, education, skill
     const [expanded, setExpanded] = useState(false);
 
     return (
-        <div className="card border rounded p-3 bg-white shadow-sm transition" style={{ minHeight: "220px" }}>
+        <div className="card border rounded p-3 bg-white shadow-sm transition-all duration-300 hover:shadow-lg hover:shadow-left" style={{ minHeight: "220px" }}>
             <div className="d-flex justify-content-between align-items-start">
                 <div>
                     <h6 className="mb-1 small fw-semibold">{name}</h6>
