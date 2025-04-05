@@ -16,7 +16,6 @@ const PasswordInput = ({value,onChange,placeholder}) => {
         placeholder={placeholder || 'Password'}
         type={isShowPassword ? 'text' : 'password'}
         className="form-control px-4 py-2 border-0"
-        required
       />
       <button onClick={toggleShowPassword} className="btn border-0 bg-transparent">
         {isShowPassword ? (

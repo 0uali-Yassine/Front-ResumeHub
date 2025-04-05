@@ -2,19 +2,34 @@ import { useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import Navbar from "../../components/Navbar";
 import PasswordInput from "../../components/PasswordInput";
+import { validateEmail } from "../../utils/helper";
 const Login = () => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const {error, setError} = useState(null);
+  const [error, setError] = useState(null);
 
   const navigate = useNavigate();
 
   const handleLogin = (e) => {
     e.preventDefault();
-    console.log("Logging in with:", email);
+    
+    console.log('ezretz')
+    if(!validateEmail(email)) {
+      console.log(error)
+      setError("Please enter a valide email address")
+      return;
+    }  
+    if(password.length < 6) {
+      setError("Password must be at least 6 characters long")
+      return;
+    }
+    
+    setError(null);
+
     // Simulate successful login
     navigate("/dashboard");
+
   };
   
 
@@ -28,10 +43,8 @@ const Login = () => {
           <input
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            type="email"
             className="form-control"
             placeholder="Email"
-            required
           />
         </div>
         <PasswordInput 
@@ -39,6 +52,7 @@ const Login = () => {
           onChange={(e) => setPassword(e.target.value)}
           placeholder="Password"
         />
+        {error && <p className="text-danger text-start small mb-1">{error}</p>}
         <button className="btn btn-primary w-100" type="submit">Login</button>
       </form>
       <p className="text-center">Don't have an account? <Link to="/signup" className="text-primary">Sign Up</Link></p>

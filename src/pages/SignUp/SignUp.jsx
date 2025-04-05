@@ -1,38 +1,71 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import Navbar from "../../components/Navbar";
+import { validateEmail } from "../../utils/helper";
+import PasswordInput from "../../components/PasswordInput";
 
 const SignUp = () => {
 
   const [fullName, setfullName] = useState("");
   const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState(null);
 
   const navigate = useNavigate();
 
- 
+
+  const handleSignUp =  (e) => {
+    e.preventDefault()
+    if(fullName.length < 3) {
+      setError("Please enter a valid name")
+      return;
+    }
+    if(!validateEmail(email)) {
+      setError("Please enter a valid email address")
+      return;
+    }
+  }
 
   return (
     <section className="section">
-      <div className="w-96 border rounded-[10px] bg-white px-7 py-10">
-        <h1 className="text-primary">Access your thoughts</h1>
-        <form  className=" flex justify-center items-center flex-col gap-2 py-5">
-          <input  
-            type="text" 
-            className="input-box" 
-            placeholder="fullName"
-            onChange={(e)=> setfullName(e.target.value)}
-            required />
-          <input  
-            type="email" 
-            className="input-box" 
-            placeholder="email"
-            onChange={(e)=> setEmail(e.target.value)}
-            required />
-         
-          <button className="btn-primary" type="submit" >Create an account</button>
+          <Navbar />
+      <div className="container w-50 border rounded-3 bg-white px-4 py-5">
+        <h1 className="text-primary text-center">Sign Up</h1>
+        <form onSubmit={handleSignUp} className="d-flex flex-column justify-content-center align-items-center gap-3 py-4">
+          <div className="mb-3 w-100">
+            <input
+              value={fullName}
+              onChange={(e) => setfullName(e.target.value)}
+              type="text"
+              className="form-control"
+              placeholder="Full Name"
+            />
+          </div>
+          <div className="mb-3 w-100">
+            <input
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              type="email"
+              className="form-control"
+              placeholder="Email"
+            />
+          </div>
+          <PasswordInput
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          placeholder="Password"
+        />
+         {error && <p className="text-danger text-start small mb-1">{error}</p>}
+          <button className="btn btn-primary w-100" type="submit">
+            Create an account
+          </button>
         </form>
-        <p>Already have an account? <Link to="/" className="text-primary">Login</Link></p>    
+        <p className="text-center">
+          Already have an account? <Link to="/" className="text-primary">Login</Link>
+        </p>
       </div>
     </section>
+
   )
 }
 
