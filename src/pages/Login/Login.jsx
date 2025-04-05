@@ -1,13 +1,16 @@
 import { useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
+import Navbar from "../../components/Navbar";
+import PasswordInput from "../../components/PasswordInput";
 const Login = () => {
 
-  // Instead of creating email state and pass create a state called formData and store all the data there !!!
   const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const {error, setError} = useState(null);
 
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleLogin = (e) => {
     e.preventDefault();
     console.log("Logging in with:", email);
     // Simulate successful login
@@ -17,20 +20,31 @@ const Login = () => {
 
   return (
     <section className="section">
-      <div className="w-96 border rounded-[10px] bg-white px-7 py-10">
-        <h1 className="text-primary">Access your thoughts</h1>
-        <form onSubmit={handleSubmit} className=" flex justify-center items-center flex-col gap-2 py-5">
+    <Navbar />
+    <div className="container w-50 border rounded-3 bg-white px-4 py-5">
+      <h1 className="text-primary">Access Your Resume</h1>
+      <form onSubmit={handleLogin} className="d-flex flex-column justify-content-center align-items-center gap-3 py-4">
+        <div className="mb-3 w-100">
           <input
-            type="email"
-            className="input-box"
-            placeholder="email"
+            value={email}
             onChange={(e) => setEmail(e.target.value)}
-            required />
-          <button className="btn-primary" type="submit" >Login</button>
-        </form>
-        <p>Dont have an account? <Link to="/signup" className="text-primary">Sign Up</Link></p>
-      </div>
-    </section>
+            type="email"
+            className="form-control"
+            placeholder="Email"
+            required
+          />
+        </div>
+        <PasswordInput 
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          placeholder="Password"
+        />
+        <button className="btn btn-primary w-100" type="submit">Login</button>
+      </form>
+      <p className="text-center">Don't have an account? <Link to="/signup" className="text-primary">Sign Up</Link></p>
+    </div>
+  </section>
+  
   )
 }
 
