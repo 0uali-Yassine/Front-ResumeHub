@@ -6,7 +6,7 @@ const Login = () => {
   const [email, setEmail] = useState("");
 
   const navigate = useNavigate();
-  
+
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Logging in with:", email);
@@ -24,6 +24,7 @@ const Login = () => {
             type="email"
             className="input-box"
             placeholder="email"
+            onChange={(e) => setEmail(e.target.value)}
             required />
           <button className="btn-primary" type="submit" >Login</button>
         </form>
