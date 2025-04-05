@@ -43,8 +43,10 @@ const AddEditResume = ({resumeData,type }) => {
     }
   };
 
-  // add/edit resume data
+  // add resume data logic and API call
   const addResumeData = () => {}
+  
+  // edit resume data logic and API call
   const editeResumeData = () => {}
 
   // Handle form
