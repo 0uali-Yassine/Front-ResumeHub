@@ -1,6 +1,6 @@
 # Resume Management System (Frontend)
 
-This is the frontend of the **Resume Management System** project. The system allows users to view, add, and edit resumes. The frontend is built with **React** and **React-Bootstrap**.
+This is the frontend of the **Resume Management System** project. The system allows **Employers**  just to view, and add edit resumes By thier **Manager**. The frontend is built with **React** and **React-Bootstrap**.
 
 ## Table of Contents
 1. [Project Overview](#project-overview)
@@ -13,9 +13,9 @@ This is the frontend of the **Resume Management System** project. The system all
 
 ## Project Overview
 
-The **Resume Management System** is designed to allow users to manage resumes in an intuitive way. The frontend handles the user interface for displaying resumes, adding new resumes, and editing existing ones. The system is built with React and includes modal functionality for adding/editing resumes.
+The **Resume Management System** is designed to allow Manager to manage resumes in an intuitive way. The frontend handles the user interface for displaying resumes, adding new resumes, and editing existing ones. The system is built with React and includes modal functionality for adding/editing resumes.
 
-This frontend communicates with the backend (not included here) to fetch, add, update, and delete resume data.
+This frontend communicates with the backend (not included here !! yet!!) to fetch, add, update, and delete resume data.
 
 ## Tech Stack
 - **React**: JavaScript library for building user interfaces.
