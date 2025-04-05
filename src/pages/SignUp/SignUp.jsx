@@ -16,14 +16,19 @@ const SignUp = () => {
 
   const handleSignUp =  (e) => {
     e.preventDefault()
-    if(fullName.length < 3) {
-      setError("Please enter a valid name")
+    if(fullName.length < 4 || fullName.length > 25) {
+      setError("Name must be between 4 and 25 characters long")
       return;
     }
     if(!validateEmail(email)) {
       setError("Please enter a valid email address")
       return;
     }
+    if(password.length < 6) {
+      setError("Password must be at least 6 characters long")
+      return;
+    }
+    setError(null);
   }
 
   return (
