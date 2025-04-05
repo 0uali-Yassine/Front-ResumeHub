@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const AddEditResume = ({ }) => {
+const AddEditResume = ({resumeData,type }) => {
   const [name, setName] = useState('');
   const [img, setImg] = useState('');
   const [date, setDate] = useState('');
@@ -8,6 +8,9 @@ const AddEditResume = ({ }) => {
   const [experience, setExperience] = useState([]);
   const [education, setEducation] = useState([]);
   const [skills, setSkills] = useState([]);
+  // error state
+  const [error, setError] = useState('');
+ 
 
   // Handle adding/editing experience, education, and skills
   const handleExperienceChange = (index, value) => {
@@ -39,6 +42,38 @@ const AddEditResume = ({ }) => {
       setImg(URL.createObjectURL(file));
     }
   };
+
+  // add/edit resume data
+  const addResumeData = () => {}
+  const editeResumeData = () => {}
+
+  // Handle form
+  const  handleAddEditResume = () => {
+    if (!name || !date || !description || !experience.length || !education.length || !skills.length) {
+      setError("Please fill in all fields and add at least one experience, education, and skill.");
+      return;
+    }
+    setError('');
+    // const resumeData = {
+    //   name,
+    //   img,
+    //   date,
+    //   description,
+    //   experience,
+    //   education,
+    //   skills,
+    // };
+    // console.log('Resume Data:', resumeData);
+    // Add your logic to save the resume data here (e.g., API call)
+
+    if(type === 'edit') {
+      editeResumeData()
+    }
+    else {
+      addResumeData()
+    }
+
+  }
 
   return (
     <div className="position-relative p-3 rounded shadow-sm bg-white w-full mx-auto" style={{width: '100%'}}>
@@ -176,11 +211,14 @@ const AddEditResume = ({ }) => {
             Add Skill
           </button>
         </div>
+        {/* Error Message */}
+        {error && <div className="text-danger border border-danger boder-1 p-2 rounded-2 bg-danger-subtle">{error}</div>}
 
         {/* Submit Button */}
         <div className="text-center mt-3">
           <button
             className="btn btn-primary btn-sm"
+            onClick={handleAddEditResume}
           >
             Add Resume
           </button>

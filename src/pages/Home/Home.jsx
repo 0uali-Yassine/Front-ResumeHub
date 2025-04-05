@@ -4,27 +4,28 @@ import Navbar from "../../components/Navbar";
 import ResumeCard from "../../components/ResumeCard";
 import AddEditResume from "./AddEditResume";
 import { IoMdAdd } from "react-icons/io";
+// import { data } from "react-router";
 
 const Home = () => {
     const [showAddEditModel, setShowAddEditModel] = useState({
         isShow: false,
         type: 'add', // or 'edit'
-        data: null
+        resumeData: null
     });
 
     const handleClose = () => {
         setShowAddEditModel({
             isShow: false,
             type: 'add',
-            data: null
+            resumeData: null
         });
     };
 
-    const handleShow = (type, data = null) => {
+    const handleShow = (type, resumeData = null) => {
         setShowAddEditModel({
             isShow: true,
             type,
-            data
+            resumeData
         });
     };
 
@@ -105,7 +106,7 @@ const Home = () => {
                         </button>
                         <AddEditResume
                             type={showAddEditModel.type}
-                            data={showAddEditModel.data}
+                            resumeData={showAddEditModel.resumeData}
                         />
                     </div>
                 </div>
