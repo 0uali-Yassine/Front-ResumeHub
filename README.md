@@ -1,12 +1,31 @@
-# React + Vite
+# Resume Management System (Frontend)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is the frontend of the **Resume Management System** project. The system allows users to view, add, and edit resumes. The frontend is built with **React** and **React-Bootstrap**.
 
-Currently, two official plugins are available:
+## Table of Contents
+1. [Project Overview](#project-overview)
+2. [Tech Stack](#tech-stack)
+3. [Setup](#setup)
+4. [File Structure](#file-structure)
+5. [Features](#features)
+6. [Usage](#usage)
+7. [Contributing](#contributing)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Project Overview
 
-## Expanding the ESLint configuration
+The **Resume Management System** is designed to allow users to manage resumes in an intuitive way. The frontend handles the user interface for displaying resumes, adding new resumes, and editing existing ones. The system is built with React and includes modal functionality for adding/editing resumes.
 
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+This frontend communicates with the backend (not included here) to fetch, add, update, and delete resume data.
+
+## Tech Stack
+- **React**: JavaScript library for building user interfaces.
+- **React-Bootstrap**: Bootstrap components built with React.
+- **React Icons**: For adding icons in the app.
+- **CSS/SCSS**: Styling the app components.
+- **React Router (optional)**: For page navigation.
+
+## Setup
+
+1. Clone this repository:
+   ```bash
+   git clone https://github.com/yourusername/resume-management-system-frontend.git
