@@ -1,10 +1,10 @@
 /* eslint-disable no-unused-vars */
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Navbar from "../../components/Navbar";
 import ResumeCard from "../../components/ResumeCard";
 import AddEditResume from "./AddEditResume";
 import { IoMdAdd } from "react-icons/io";
-// import { data } from "react-router";
+import { useNavigate } from "react-router";
 
 const Home = () => {
     const [showAddEditModel, setShowAddEditModel] = useState({
@@ -12,6 +12,8 @@ const Home = () => {
         type: 'add', // or 'edit'
         resumeData: null
     });
+
+    const navigate = useNavigate();
 
     const handleClose = () => {
         setShowAddEditModel({
@@ -28,6 +30,14 @@ const Home = () => {
             resumeData
         });
     };
+
+    //  protect routes in frontend "BUT" must be in backend
+    // useEffect(() => {
+    //     const token = localStorage.getItem("token");
+    //     if (!token) {
+    //         navigate("/login");
+    //     }
+    // }, []);
 
     return (
         <section>
@@ -112,7 +122,7 @@ const Home = () => {
                 </div>
             )}
 
-            
+
         </section>
     );
 };

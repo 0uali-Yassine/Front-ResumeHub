@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom"
 import Navbar from "../../components/Navbar";
 import PasswordInput from "../../components/PasswordInput";
 import { validateEmail } from "../../utils/helper";
+import axiosInstance from "../../utils/axiosInstance";
 const Login = () => {
 
   const [email, setEmail] = useState("");
@@ -11,13 +12,11 @@ const Login = () => {
 
   const navigate = useNavigate();
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
     
-    console.log('ezretz')
     if(!validateEmail(email)) {
-      console.log(error)
-      setError("Please enter a valide email address")
+      setError("Please enter a valid email address")
       return;
     }  
     if(password.length < 6) {
@@ -27,8 +26,25 @@ const Login = () => {
     
     setError(null);
 
-    // Simulate successful login
-    navigate("/dashboard");
+    // try successful login
+    try {
+      const response = await axiosInstance.post("/login", {
+        email,
+        password,
+      });
+
+      // handle success response
+      if (response?.status === 200) {
+        localStorage.setItem("token", response?.data?.token);
+        navigate("/dashboard");
+      } else {
+        setError(response?.data?.message);
+      }
+      
+    } catch (error) {
+      console.log(error);
+      setError(error.response?.data?.message || "wayliii");
+    }
 
   };
   
@@ -36,8 +52,8 @@ const Login = () => {
   return (
     <section className="section">
     <Navbar />
-    <div className="container w-50 border rounded-3 bg-white px-4 py-5">
-      <h1 className="text-primary">Access Your Resume</h1>
+    <div className="container w-50 border rounded-3 bg-white mt-4 px-4 py-5">
+      <h1 className="text-primary text-center">Access Your Resume</h1>
       <form onSubmit={handleLogin} className="d-flex flex-column justify-content-center align-items-center gap-3 py-4">
         <div className="mb-3 w-100">
           <input

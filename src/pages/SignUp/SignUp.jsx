@@ -34,7 +34,7 @@ const SignUp = () => {
   return (
     <section className="section">
           <Navbar />
-      <div className="container w-50 border rounded-3 bg-white px-4 py-5">
+      <div className="container w-50 border rounded-3 bg-white mt-5 px-4 py-5">
         <h1 className="text-primary text-center">Sign Up</h1>
         <form onSubmit={handleSignUp} className="d-flex flex-column justify-content-center align-items-center gap-3 py-4">
           <div className="mb-3 w-100">
