@@ -18,7 +18,8 @@ const SignUp = () => {
 
 
   const handleSignUp =  async(e) => {
-    e.preventDefault()
+    e.preventDefault();
+    
     if(fullName.length < 4 || fullName.length > 25) {
       setError("Name must be between 4 and 25 characters long")
       return;

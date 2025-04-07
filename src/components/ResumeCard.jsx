@@ -2,11 +2,14 @@
 import { useState } from 'react';
 import { MdOutlinePushPin, MdCreate, MdDelete } from 'react-icons/md';
 
-const ResumeCard = ({ name, img, date, description, experience, education, skills, onEdit, onDelete }) => {
+const ResumeCard = ({ name, img, date, description, experience, education, skills, highlighted, currentUserId, resumeUserId, role, onEdit, onDelete }) => {
     const [expanded, setExpanded] = useState(false);
 
+
+    const canExpand = role === "manager" || currentUserId === resumeUserId;
+
     return (
-        <div className="card border rounded p-3 bg-white shadow-sm transition-all duration-300 hover:shadow-lg hover:shadow-left" style={{ minHeight: "220px" }}>
+        <div className={`card border rounded p-3 bg-white shadow-sm transition-all duration-300 hover:shadow-lg hover:shadow-left ${highlighted ? "border-primary border-3" : "border-secondary"}`} style={{ minHeight: "220px" }}>
             <div className="d-flex justify-content-between align-items-start">
                 <div>
                     <h6 className="mb-1 small fw-semibold">{name}</h6>
@@ -54,7 +57,7 @@ const ResumeCard = ({ name, img, date, description, experience, education, skill
                 <div className="d-flex gap-2">
                     <div className="ms-auto">
                         <MdCreate className="icon-btn text-muted cursor-pointer hover-text-success" onClick={onEdit} />
-                        <MdDelete className="icon-btn text-muted cursor-pointer hover-text-danger" style={{cursor:'pointer'}} onClick={onDelete} />
+                        <MdDelete className="icon-btn text-muted cursor-pointer hover-text-danger" style={{ cursor: 'pointer' }} onClick={onDelete} />
                     </div>
                 </div>
             </div>
@@ -62,8 +65,11 @@ const ResumeCard = ({ name, img, date, description, experience, education, skill
 
             <div className="text-center mt-2">
                 <button
+                title={canExpand ? 'Expand' : 'You cannot expand your resume'}
                     className="btn btn-sm btn-outline-primary"
-                    onClick={() => setExpanded(!expanded)}
+                    style={{cursor: canExpand ? 'pointer' : 'not-allowed'}}
+                    onClick={() => canExpand && setExpanded(!expanded)}
+                   
                 >
                     {expanded ? 'View Less' : 'View More'}
                 </button>
