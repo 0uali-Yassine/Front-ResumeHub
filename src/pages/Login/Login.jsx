@@ -43,7 +43,7 @@ const Login = () => {
       
     } catch (error) {
       console.log(error);
-      setError(error.response?.data?.message || "wayliii");
+      setError(error.response?.data?.message || "Invalid credentials");
     }
 
   };

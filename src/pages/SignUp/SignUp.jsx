@@ -3,18 +3,22 @@ import { Link, useNavigate } from "react-router-dom";
 import Navbar from "../../components/Navbar";
 import { validateEmail } from "../../utils/helper";
 import PasswordInput from "../../components/PasswordInput";
+import axiosInstance from "../../utils/axiosInstance";
+
 
 const SignUp = () => {
 
   const [fullName, setfullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [role, setRole] = useState("employer");
   const [error, setError] = useState(null);
+  console.log(role);
 
   const navigate = useNavigate();
 
 
-  const handleSignUp =  (e) => {
+  const handleSignUp =  async(e) => {
     e.preventDefault()
     if(fullName.length < 4 || fullName.length > 25) {
       setError("Name must be between 4 and 25 characters long")
@@ -29,6 +33,24 @@ const SignUp = () => {
       return;
     }
     setError(null);
+    try {
+      const response = await axiosInstance.post("/create-account", {
+        fullName,
+        email,
+        password,
+      });
+  
+      if (response?.status === 201) {
+        localStorage.setItem("token", response?.data?.token);
+        navigate("/dashboard");
+      } else {
+        setError(response?.data?.message || "Failed to create account");
+      }
+  
+    } catch (error) {
+      console.error(error);
+      setError(error.response?.data?.message || "Something went wrong");
+    }
   }
 
   return (
@@ -60,6 +82,21 @@ const SignUp = () => {
           onChange={(e) => setPassword(e.target.value)}
           placeholder="Password"
         />
+          <div className="mb-3 w-100">
+            <section>
+              <label htmlFor="role" className="form-label text-muted" style={{fontSize:'12px'}}>* Select your role for the application.</label>
+              <select
+                id="role"
+                value={role}
+                onChange={(e) => setRole(e.target.value)}
+                className="form-select"
+              >
+                <option value="" disabled>Select your role</option>
+                <option value="manager">Manager</option>
+                <option value="employer">Employer</option>
+              </select>
+            </section>
+          </div>
          {error && <p className="text-danger text-start small mb-1">{error}</p>}
           <button className="btn btn-primary w-100" type="submit">
             Create an account
