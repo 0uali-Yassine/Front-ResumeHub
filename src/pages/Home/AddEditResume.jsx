@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axiosInstance from '../../utils/axiosInstance';
 
 const AddEditResume = ({resumeData,type }) => {
@@ -11,6 +11,18 @@ const AddEditResume = ({resumeData,type }) => {
   const [skills, setSkills] = useState([]);
   // error state
   const [error, setError] = useState('');
+
+  useEffect(() => {
+    if (type === 'edit' && resumeData) {
+      setName(resumeData.fullName);
+      setImg(resumeData.img);
+      setDate(resumeData.date);
+      setDescription(resumeData.description);
+      setExperience(resumeData.experience || []);
+      setEducation(resumeData.education || []);
+      setSkills(resumeData.skills || []);
+    }
+  }, [type, resumeData]);
  
 
   // Handle adding/editing experience, education, and skills
@@ -42,6 +54,7 @@ const AddEditResume = ({resumeData,type }) => {
     if (file) {
       setImg(URL.createObjectURL(file));
     }
+    console.log({img});
   };
 
   // add resume data logic and API call
@@ -69,7 +82,28 @@ const AddEditResume = ({resumeData,type }) => {
   }
   
   // edit resume data logic and API call
-  const editeResumeData = () => {}
+  const editeResumeData = async() => {
+    try {
+      const response = await axiosInstance.put(`/edit-resume/${resumeData._id}`, {
+        fullName: name,
+        img,
+        date,
+        description,
+        experience,
+        education,
+        skills
+      });
+
+      if (!response?.data?.error) {
+        alert("Resume updated successfully!");
+        window.location.reload(); // OR trigger fetch from parent
+      } else {
+        setError(response?.data?.message);
+      }
+    } catch (err) {
+      setError(err.response?.data?.message || "Something went wrong.");
+    }
+  }
 
   // Handle form
   const  handleAddEditResume = () => {
@@ -244,7 +278,7 @@ const AddEditResume = ({resumeData,type }) => {
             className="btn btn-primary btn-sm"
             onClick={handleAddEditResume}
           >
-            Add Resume
+            {type === 'edit' ? 'Update Resume' : 'Add Resume'}
           </button>
         </div>
       </div>

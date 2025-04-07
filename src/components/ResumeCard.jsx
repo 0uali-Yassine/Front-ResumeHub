@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import { useState } from 'react';
-import { MdOutlinePushPin, MdCreate, MdDelete } from 'react-icons/md';
+import { MdCreate, MdDelete } from 'react-icons/md';
 
 const ResumeCard = ({ name, img, date, description, experience, education, skills, highlighted, currentUserId, resumeUserId, role, onEdit, onDelete }) => {
     const [expanded, setExpanded] = useState(false);
@@ -21,11 +21,13 @@ const ResumeCard = ({ name, img, date, description, experience, education, skill
                     className="img-thumbnail rounded-circle ms-3"
                     style={{ width: "48px", height: "48px", objectFit: "cover" }}
                 />
+
             </div>
 
             <p className="small text-muted mt-2 mb-0">
                 {expanded ? description : description.slice(0, 100) + (description.length > 100 ? '...' : '')}
             </p>
+            <hr />
 
             {expanded && (
                 <>
@@ -34,6 +36,8 @@ const ResumeCard = ({ name, img, date, description, experience, education, skill
                         {experience.map((exp, index) => (
                             <p className="small text-muted mb-1" key={index}>{exp}</p>
                         ))}
+                        <hr />
+
                     </div>
 
                     <div className="mt-2">
@@ -41,6 +45,7 @@ const ResumeCard = ({ name, img, date, description, experience, education, skill
                         {education.map((edu, index) => (
                             <p className="small text-muted mb-1" key={index}>{edu}</p>
                         ))}
+                        <hr />
                     </div>
                     <div className="mt-2">
                         <h6 className="small text-dark fw-bold mb-1">Skills:</h6>
@@ -53,11 +58,19 @@ const ResumeCard = ({ name, img, date, description, experience, education, skill
             )}
 
             <div className="d-flex justify-content-between align-items-center mt-3">
-                <small className="text-muted">#create by: Yassine</small>
+                <small className="">#create by: {name}</small>
                 <div className="d-flex gap-2">
                     <div className="ms-auto">
-                        <MdCreate className="icon-btn text-muted cursor-pointer hover-text-success" onClick={onEdit} />
-                        <MdDelete className="icon-btn text-muted cursor-pointer hover-text-danger" style={{ cursor: 'pointer' }} onClick={onDelete} />
+                        <MdCreate
+                            className="icon-btn  cursor-pointer hover:text-success"
+                            style={{ cursor: 'pointer', color: 'green' }}
+                            onClick={onEdit}
+                        />
+                        <MdDelete
+                            className="icon-btn  cursor-pointer hover:text-danger"
+                            style={{ cursor: 'pointer', color: 'red' }}
+                            onClick={onDelete}
+                        />
                     </div>
                 </div>
             </div>
@@ -65,11 +78,11 @@ const ResumeCard = ({ name, img, date, description, experience, education, skill
 
             <div className="text-center mt-2">
                 <button
-                title={canExpand ? 'Expand' : 'You cannot expand your resume'}
+                    title={canExpand ? 'Expand' : 'You cannot expand your resume'}
                     className="btn btn-sm btn-outline-primary"
-                    style={{cursor: canExpand ? 'pointer' : 'not-allowed'}}
+                    style={{ cursor: canExpand ? 'pointer' : 'not-allowed' }}
                     onClick={() => canExpand && setExpanded(!expanded)}
-                   
+
                 >
                     {expanded ? 'View Less' : 'View More'}
                 </button>

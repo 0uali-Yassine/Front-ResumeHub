@@ -83,22 +83,50 @@ const Home = () => {
     };
 
 
+    const handleDelete = async (resumeId) => {
+        try {
+            const token = localStorage.getItem("token");
+            const response = await axiosInstance.delete(`/delete-resume/${resumeId}`, {
+                headers: { Authorization: `Bearer ${token}` },
+            });
+
+            if (response.data.error) {
+                console.error("Failed to delete resume:", response?.data?.message);
+            } else {
+                console.log("Resume deleted successfully");
+                // Update the state to remove the deleted resume
+                setResumes(resumes.filter((resume) => resume._id !== resumeId));
+            }
+        } catch (err) {
+            console.error("Error deleting resume:", err);
+        }
+    };
+
+
 
 
 
     return (
+    
         <section>
             <Navbar />
-            <div className="container mx-auto p-[2rem]">
-                <h1 className="text-4xl text-slate-900 text-center font-semibold">Your Thoughts</h1>
+            <div className="container mx-auto mt-5 p-[2rem]">
+                <h1 className="text-4xl text-slate-900 text-center font-semibold">Talent Profiles</h1>
                 <p className="text-slate-500 mt-2 text-center">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatibus.
+                    Browse qualified candidates and discover the right fit for your team.
                 </p>
             </div>
             <div className="container py-4">
-                <p className="text-center fs-4">
-                    No Resume found. Add some resumes by clicking on the plus icon.
-                </p>
+                {
+                    resumes.length === 0 ? (
+                        <div className="text-center mt-5">
+                            <h2 className="text-2xl text-slate-700">No resumes available</h2>
+                            <p className="text-slate-500">Please add a resume to see it here.</p>
+                        </div>
+                    ) : (
+                        <h2 className="text-2xl text-slate-700 text-center mb-4">All Resumes</h2>
+                    )
+                }
 
                 <div className="row mt-4 g-4">
                     {resumes.map((resume) => (
@@ -115,6 +143,8 @@ const Home = () => {
                                 currentUserId={userInfo.id}
                                 resumeUserId={resume.userId}
                                 role={userInfo.role}
+                                onEdit={() => handleShow('edit', resume)}
+                                onDelete={() => handleDelete(resume._id)}
                             />
                         </div>
                     ))}
@@ -151,7 +181,7 @@ const Home = () => {
                         </button>
                         <AddEditResume
                             type={showAddEditModel.type}
-                            resumeData={showAddEditModel.resumeData}
+                            resumeData={showAddEditModel?.resumeData}
                         />
                     </div>
                 </div>
