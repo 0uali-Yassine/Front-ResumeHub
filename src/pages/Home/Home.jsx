@@ -28,7 +28,7 @@ const Home = () => {
                 const resumeRes = await axiosInstance.get("/get-all-resumes", {
                     headers: { Authorization: `Bearer ${token}` },
                 });
-                setResumes(resumeRes.data.resumes);
+                setResumes(resumeRes?.data?.resumes);
 
                 // Fetch current user info
                 const userRes = await axiosInstance.get("/get-user", {
@@ -40,6 +40,11 @@ const Home = () => {
                     id: user._id,
                     role: user.role,
                 });
+
+                const userHasResume = resumeRes.data.resumes.some(
+                    (resume) => resume.userId === user._id
+                );
+                setHasResume(userHasResume);
             } catch (err) {
                 console.error("Error fetching data:", err);
             }
@@ -77,26 +82,7 @@ const Home = () => {
         });
     };
 
-    // get all resumes
-    useEffect(() => {
-        const fetchResumes = async () => {
-            try {
-                const token = localStorage.getItem("token");
-                const res = await axiosInstance.get("/get-all-resumes", {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
-                });
 
-                setResumes(res?.data?.resumes);
-                setCurrentUserId(res?.data?.currentUserId); // save employer id
-            } catch (err) {
-                console.error("Failed to fetch resumes", err);
-            }
-        };
-
-        fetchResumes();
-    }, []);
 
 
 
@@ -139,12 +125,16 @@ const Home = () => {
             </div>
 
             {/* Add Resume Button */}
-            <button
-                className="btn btn-primary rounded-1 position-fixed bottom-0 end-0 m-4 shadow"
-                onClick={() => handleShow('add')}
-            >
-                <IoMdAdd className="fs-2" />
-            </button>
+            {userInfo.role === "employer" && (
+                <button
+                    className="btn btn-primary rounded-1 position-fixed bottom-0 end-0 m-4 shadow"
+                    onClick={() => handleShow('add')}
+                    disabled={hasResume}
+                    title={hasResume ? "You already have a resume." : "Add a new resume"}
+                >
+                    <IoMdAdd className="fs-2" />
+                </button>
+            )}
 
             {/* Modal */}
             {showAddEditModel.isShow && (
