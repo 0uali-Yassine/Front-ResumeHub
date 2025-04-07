@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axiosInstance from '../../utils/axiosInstance';
 
 const AddEditResume = ({resumeData,type }) => {
   const [name, setName] = useState('');
@@ -44,7 +45,28 @@ const AddEditResume = ({resumeData,type }) => {
   };
 
   // add resume data logic and API call
-  const addResumeData = () => {}
+  const addResumeData = async() => {
+    try {
+      const response = await axiosInstance.post("/add-resume", {
+        fullName: name,
+        img,
+        date,
+        description,
+        experience,
+        education,
+        skills
+      });
+  
+      if (!response?.data?.error) {
+        alert("Resume added successfully!");
+        window.location.reload(); // OR trigger fetch from parent
+      } else {
+        setError(response?.data?.message);
+      }
+    } catch (err) {
+      setError(err.response?.data?.message || "something  wrong");
+    }  
+  }
   
   // edit resume data logic and API call
   const editeResumeData = () => {}

@@ -16,6 +16,8 @@ function Navbar() {
 
 
   const onLogout = () => {
+    localStorage.removeItem("token");
+    // axios
     navigate("/");
   }
   return (

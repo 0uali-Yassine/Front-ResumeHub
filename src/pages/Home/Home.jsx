@@ -5,6 +5,7 @@ import ResumeCard from "../../components/ResumeCard";
 import AddEditResume from "./AddEditResume";
 import { IoMdAdd } from "react-icons/io";
 import { useNavigate } from "react-router";
+import axiosInstance from "../../utils/axiosInstance";
 
 const Home = () => {
     const [showAddEditModel, setShowAddEditModel] = useState({
@@ -14,6 +15,15 @@ const Home = () => {
     });
 
     const navigate = useNavigate();
+    //   protect routes in frontend "BUT" must be in backend
+    useEffect(() => {
+        const token = localStorage.getItem("token");
+        if (!token) {
+            navigate("/login");
+        }else{
+            navigate("/dashboard");
+        }
+    }, []);
 
     const handleClose = () => {
         setShowAddEditModel({
@@ -31,13 +41,7 @@ const Home = () => {
         });
     };
 
-    //  protect routes in frontend "BUT" must be in backend
-    // useEffect(() => {
-    //     const token = localStorage.getItem("token");
-    //     if (!token) {
-    //         navigate("/login");
-    //     }
-    // }, []);
+   
 
     return (
         <section>

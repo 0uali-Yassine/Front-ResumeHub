@@ -13,7 +13,6 @@ const SignUp = () => {
   const [password, setPassword] = useState("");
   const [role, setRole] = useState("employer");
   const [error, setError] = useState(null);
-  console.log(role);
 
   const navigate = useNavigate();
 
