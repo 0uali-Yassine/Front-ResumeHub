@@ -38,6 +38,7 @@ const SignUp = () => {
         fullName,
         email,
         password,
+        role
       });
   
       if (response?.status === 201) {
