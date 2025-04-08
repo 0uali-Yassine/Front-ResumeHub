@@ -16,12 +16,14 @@ const Home = () => {
     const [resumes, setResumes] = useState([]);
     const [userInfo, setUserInfo] = useState({ id: "", role: "" });
     const [hasResume, setHasResume] = useState(false);
+    const [loading, setLoading] = useState(false);
 
 
     // for get the role of user
     useEffect(() => {
         const fetchData = async () => {
             try {
+                setLoading(true);
                 const token = localStorage.getItem("token");
 
                 // Fetch all resumes
@@ -44,8 +46,11 @@ const Home = () => {
                 const userHasResume = resumeRes.data.resumes.some(
                     (resume) => resume.userId === user._id
                 );
+                
                 setHasResume(userHasResume);
+                setLoading(false);
             } catch (err) {
+                setLoading(false);
                 console.error("Error fetching data:", err);
             }
         };
@@ -95,6 +100,7 @@ const Home = () => {
             } else {
                 console.log("Resume deleted successfully");
                 // Update the state to remove the deleted resume
+                setHasResume(false);
                 setResumes(resumes.filter((resume) => resume._id !== resumeId));
             }
         } catch (err) {
@@ -118,14 +124,17 @@ const Home = () => {
             </div>
             <div className="container py-4">
                 {
-                    resumes.length === 0 ? (
+                    loading ? (
                         <div className="text-center mt-5">
-                            <h2 className="text-2xl text-slate-700">No resumes available</h2>
-                            <p className="text-slate-500">Please add a resume to see it here.</p>
+                            <div className="spinner-border text-primary" role="status">
+                                <span className="visually-hidden">Loading...</span>
+                            </div>
                         </div>
-                    ) : (
-                        <h2 className="text-2xl text-slate-700 text-center mb-4">All Resumes</h2>
-                    )
+                    ) : resumes.length === 0 ? (
+                        <div className="text-center mt-5">
+                            <h2 className="text-gray-500">No resumes available</h2>
+                        </div>
+                    ) : null
                 }
 
                 <div className="row mt-4 g-4">

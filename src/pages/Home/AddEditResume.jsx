@@ -11,6 +11,8 @@ const AddEditResume = ({resumeData,type }) => {
   const [skills, setSkills] = useState([]);
   // error state
   const [error, setError] = useState('');
+  // const [imgFile, setImgFile] = useState(null); // store actual File
+
 
   useEffect(() => {
     if (type === 'edit' && resumeData) {
@@ -56,6 +58,14 @@ const AddEditResume = ({resumeData,type }) => {
     }
     console.log({img});
   };
+  // const handleImageChange = (e) => {
+  //   const file = e.target.files[0];
+  //   if (file) {
+  //     setImgFile(file); // 👈 store the file
+  //     setImg(URL.createObjectURL(file)); // for preview
+  //   }
+  // };
+  
 
   // add resume data logic and API call
   const addResumeData = async() => {
@@ -80,6 +90,34 @@ const AddEditResume = ({resumeData,type }) => {
       setError(err.response?.data?.message || "something  wrong");
     }  
   }
+  // const addResumeData = async () => {
+  //   try {
+  //     const formData = new FormData();
+  //     formData.append('fullName', name);
+  //     formData.append('date', date);
+  //     formData.append('description', description);
+  //     formData.append('image', imgFile); // 👈 must match multer field name
+  //     formData.append('experience', JSON.stringify(experience));
+  //     formData.append('education', JSON.stringify(education));
+  //     formData.append('skills', JSON.stringify(skills));
+  
+  //     const response = await axiosInstance.post('/add-resume', formData, {
+  //       headers: {
+  //         'Content-Type': 'multipart/form-data',
+  //       },
+  //     });
+  
+  //     if (!response?.data?.error) {
+  //       alert('Resume added successfully!');
+  //       window.location.reload();
+  //     } else {
+  //       setError(response?.data?.message);
+  //     }
+  //   } catch (err) {
+  //     setError(err.response?.data?.message || 'Something went wrong.');
+  //   }
+  // };
+  
   
   // edit resume data logic and API call
   const editeResumeData = async() => {
@@ -104,6 +142,35 @@ const AddEditResume = ({resumeData,type }) => {
       setError(err.response?.data?.message || "Something went wrong.");
     }
   }
+
+  // const editeResumeData = async () => {
+  //   try {
+  //     const formData = new FormData();
+  //     formData.append('fullName', name);
+  //     formData.append('date', date);
+  //     formData.append('description', description);
+  //     formData.append('im', imgFile); // 👈 updated image if selected
+  //     formData.append('experience', JSON.stringify(experience));
+  //     formData.append('education', JSON.stringify(education));
+  //     formData.append('skills', JSON.stringify(skills));
+  
+  //     const response = await axiosInstance.put(`/edit-resume/${resumeData._id}`, formData, {
+  //       headers: {
+  //         'Content-Type': 'multipart/form-data',
+  //       },
+  //     });
+  
+  //     if (!response?.data?.error) {
+  //       alert('Resume updated successfully!');
+  //       window.location.reload();
+  //     } else {
+  //       setError(response?.data?.message);
+  //     }
+  //   } catch (err) {
+  //     setError(err.response?.data?.message || 'Something went wrong.');
+  //   }
+  // };
+  
 
   // Handle form
   const  handleAddEditResume = () => {
