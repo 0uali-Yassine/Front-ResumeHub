@@ -8,6 +8,9 @@ function Navbar() {
   const [searchQuery, setSearchQuery] = useState('');
   const navigate = useNavigate();
 
+
+
+
   const handleSearch = () => {
   }
 
@@ -58,7 +61,7 @@ function Navbar() {
               />
           </div>
 
-          <ProfileInfo onLogout={onLogout} />
+          <ProfileInfo  onLogout={onLogout} />
         </div>
       </div>
     </nav>
