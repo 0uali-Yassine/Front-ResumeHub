@@ -6,6 +6,7 @@ import AddEditResume from "./AddEditResume";
 import { IoMdAdd } from "react-icons/io";
 // import { useNavigate } from "react-router";
 import axiosInstance from "../../utils/axiosInstance";
+import { ToastContainer } from "react-toastify";
 
 const Home = () => {
     const [showAddEditModel, setShowAddEditModel] = useState({
@@ -95,10 +96,11 @@ const Home = () => {
                 headers: { Authorization: `Bearer ${token}` },
             });
 
-            if (response.data.error) {
+            if (response?.data?.error) {
                 console.error("Failed to delete resume:", response?.data?.message);
             } else {
-                console.log("Resume deleted successfully");
+                toast.success("Resume deleted successfully", {
+                    position: "top-right"});
                 // Update the state to remove the deleted resume
                 setHasResume(false);
                 setResumes(resumes.filter((resume) => resume._id !== resumeId));
@@ -116,6 +118,7 @@ const Home = () => {
     
         <section>
             <Navbar />
+            <ToastContainer />
             <div className="container mx-auto mt-5 p-[2rem]">
                 <h1 className="text-4xl text-slate-900 text-center font-semibold">Talent Profiles</h1>
                 <p className="text-slate-500 mt-2 text-center">

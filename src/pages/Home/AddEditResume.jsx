@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axiosInstance from '../../utils/axiosInstance';
+import { toast } from 'react-toastify';
 
 const AddEditResume = ({resumeData,type }) => {
   const [name, setName] = useState('');
@@ -81,7 +82,8 @@ const AddEditResume = ({resumeData,type }) => {
       });
   
       if (!response?.data?.error) {
-        alert("Resume added successfully!");
+        toast.success(response?.data?.message || "Resume added successfully!");
+        to("Resume added successfully!");
         window.location.reload(); // OR trigger fetch from parent
       } else {
         setError(response?.data?.message);
