@@ -68,3 +68,9 @@ body{
 .modal-content.show {
     transform: scale(1); /* Scaling effect */
 }
+
+
+.highlighted-card {
+    border: 1px solid #6c5ce7;
+    box-shadow: 0 10px 30px #6c5ce7;
+  }

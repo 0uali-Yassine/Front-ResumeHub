@@ -82,14 +82,13 @@ const AddEditResume = ({resumeData,type }) => {
       });
   
       if (!response?.data?.error) {
-        toast.success(response?.data?.message || "Resume added successfully!");
-        to("Resume added successfully!");
+        toast.success("Resume added successfully!");
         window.location.reload(); // OR trigger fetch from parent
       } else {
         setError(response?.data?.message);
       }
     } catch (err) {
-      setError(err.response?.data?.message || "something  wrong");
+      setError(err.response?.data?.message);
     }  
   }
   // const addResumeData = async () => {
@@ -135,7 +134,7 @@ const AddEditResume = ({resumeData,type }) => {
       });
 
       if (!response?.data?.error) {
-        alert("Resume updated successfully!");
+        toast.success("Resume updated successfully!");
         window.location.reload(); // OR trigger fetch from parent
       } else {
         setError(response?.data?.message);
