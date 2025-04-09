@@ -29,11 +29,9 @@ function ProfileInfo({ onLogout }) {
           },
         });
 
-        if (!response?.data?.error) {
+        if (response?.data) {
           setUser(response?.data?.user);
-        } else {
-          setError(response.data.message || 'Failed to fetch user data');
-        }
+        } 
       } catch (error) {
         setError(error.message || 'Error fetching user data');
         console.error('Error fetching user:', error);
