@@ -19,9 +19,9 @@ const ResumeCard = ({
   onEdit,
   onDelete: externalDelete,
 }) => {
-  const newRole = currentUserId === resumeUserId ? role : "manager";
-  // const canExpand = role === "manager" || currentUserId === resumeUserId;
-  const canExpand = newRole;
+  // const newRole = currentUserId === resumeUserId ? role : "manager";
+  const canExpand = role === "manager" || currentUserId === resumeUserId;
+  // const canExpand = newRole;
   const [expanded, setExpanded] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   //const [editFormData, setEditFormData] = useState({ name, role, description });
@@ -36,7 +36,7 @@ const ResumeCard = ({
   const handleDelete = () => {
     externalDelete?.();
     setIsDeleteDialogOpen(false);
-    toast.warning(`${name} cannot be deleted`);
+   // toast.warning(`${name} cannot be deleted`);
   };
 
   return (
@@ -61,7 +61,7 @@ const ResumeCard = ({
           <div>
             <h5 className="fw-bold mb-1">{name}</h5>
             <div className="text-muted small mb-2 d-flex align-items-center">
-              <span className="badge bg-light text-dark me-2">{role}</span>
+              <span className="badge bg-light text-dark me-2">{role === "manager" ? 'Employer':'Employer'}</span>
               <span>•</span>
               <span className="ms-2">{date}</span>
             </div>

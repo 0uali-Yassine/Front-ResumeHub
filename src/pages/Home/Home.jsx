@@ -116,7 +116,6 @@ const Home = () => {
 
 
 
-
     return (
         <>
          <Navbar />
@@ -167,7 +166,7 @@ const Home = () => {
                                     highlighted={resume.userId === userInfo.id}
                                     currentUserId={userInfo.id}
                                     resumeUserId={resume.userId}
-                                    role={"employer"}
+                                    role={userInfo.role}
                                     onEdit={() => handleShow("edit", resume)}
                                     onDelete={() => handleDelete(resume._id)}
                                 />
