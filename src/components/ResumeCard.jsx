@@ -19,7 +19,9 @@ const ResumeCard = ({
   onEdit,
   onDelete: externalDelete,
 }) => {
-  const canExpand = role === "manager" || currentUserId === resumeUserId;
+  const newRole = currentUserId === resumeUserId ? role : "manager";
+  // const canExpand = role === "manager" || currentUserId === resumeUserId;
+  const canExpand = newRole;
   const [expanded, setExpanded] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   //const [editFormData, setEditFormData] = useState({ name, role, description });
@@ -36,7 +38,6 @@ const ResumeCard = ({
     setIsDeleteDialogOpen(false);
     toast.warning(`${name} cannot be deleted`);
   };
-  console.log("highlighted:", highlighted);
 
   return (
     <>

@@ -37,9 +37,9 @@ body{
     background-color: white;
     padding: 2rem;
     border-radius: 10px;
-    width: 500px; /* You can adjust the width */
+    width: 80%; /* You can adjust the width */
     max-width: 90%;
-    height: 90vh;
+    height: 100vh;
     overflow-x: scroll;
     position: relative;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Added a larger shadow for more depth */

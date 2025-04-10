@@ -38,7 +38,7 @@ const Home = () => {
                     headers: { Authorization: `Bearer ${token}` },
                 });
 
-                const user = userRes.data.user;
+                const user = userRes?.data?.user; // fix this line must get all user data for Role
                 setUserInfo({
                     id: user._id,
                     role: user.role,
@@ -116,6 +116,7 @@ const Home = () => {
 
 
 
+
     return (
         <>
          <Navbar />
@@ -166,7 +167,7 @@ const Home = () => {
                                     highlighted={resume.userId === userInfo.id}
                                     currentUserId={userInfo.id}
                                     resumeUserId={resume.userId}
-                                    role={userInfo.role}
+                                    role={"employer"}
                                     onEdit={() => handleShow("edit", resume)}
                                     onDelete={() => handleDelete(resume._id)}
                                 />
