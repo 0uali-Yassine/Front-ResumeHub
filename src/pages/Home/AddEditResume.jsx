@@ -3,7 +3,18 @@ import axiosInstance from '../../utils/axiosInstance';
 import { toast } from 'react-toastify';
 
 const AddEditResume = ({ resumeData, type }) => {
+  // title,email,link,address,phone,Languages,project
   const [name, setName] = useState('');
+  //new data
+  const [title,setTitle] = useState('');
+  const [email,setEmail] = useState('');
+  const [address,setAddress] = useState('');
+  const [phone,setPhone] = useState('');
+  const [link,setLink] = useState('');
+  const [project, setProject] = useState([]);
+  const [language, setLanguage] = useState([]);
+
+  //new data
   const [img, setImg] = useState('');
   const [date, setDate] = useState('');
   const [description, setDescription] = useState('');
@@ -18,6 +29,16 @@ const AddEditResume = ({ resumeData, type }) => {
   useEffect(() => {
     if (type === 'edit' && resumeData) {
       setName(resumeData.fullName);
+      //new data
+      setTitle(resumeData.title);
+      setEmail(resumeData.email);
+      setAddress(resumeData.address)
+      setPhone(resumeData.phone)
+      setLink(resumeData.link)
+      setProject(resumeData.project || []);
+      setLanguage(resumeData.language || []);
+
+      //new data
       setImg(resumeData.img);
       setDate(resumeData.date);
       setDescription(resumeData.description);
@@ -34,6 +55,18 @@ const AddEditResume = ({ resumeData, type }) => {
     updatedExperience[index] = value;
     setExperience(updatedExperience);
   };
+  // new data
+  const handleProjectChange = (index, value) => {
+    const updatedProject = [...project];
+    updatedProject[index] = value;
+    setProject(updatedProject);
+  };
+  const handleLanguage = (index, value) => {
+    const updatedLanguage = [...language];
+    updatedLanguage[index] = value;
+    setLanguage(updatedLanguage);
+  };
+  // new data
 
   const handleEducationChange = (index, value) => {
     const updatedEducation = [...education];
@@ -70,12 +103,20 @@ const AddEditResume = ({ resumeData, type }) => {
 
   // add resume data logic and API call
   const addResumeData = async () => {
+    console.log('add(resume front')
     try {
       const response = await axiosInstance.post("/add-resume", {
         fullName: name,
         img,
+        title,
+        address,
+        link,
+        phone,
+        email,
         date,
         description,
+        project,
+        language,
         experience,
         education,
         skills
@@ -126,10 +167,17 @@ const AddEditResume = ({ resumeData, type }) => {
       const response = await axiosInstance.put(`/edit-resume/${resumeData._id}`, {
         fullName: name,
         img,
+        title,
+        email,
+        link,
+        phone,
+        address,
         date,
         description,
+        project,
         experience,
         education,
+        languages,
         skills
       });
 
@@ -175,8 +223,8 @@ const AddEditResume = ({ resumeData, type }) => {
 
   // Handle form
   const handleAddEditResume = () => {
-    if (!name || !date || !description || !experience.length || !education.length || !skills.length) {
-      setError("Please fill in all fields and add at least one experience, education, and skill.");
+    if (!name || !date || !title || !phone|| !address || !description || !project.length ||!experience.length || !education.length || !skills.length) {
+      setError("Please fill in all fields and add at least one  experience, project, education, and skill.");
       return;
     }
     setError('');
@@ -200,6 +248,8 @@ const AddEditResume = ({ resumeData, type }) => {
     }
 
   }
+
+ 
 
   return (
     <div
@@ -232,7 +282,19 @@ const AddEditResume = ({ resumeData, type }) => {
               onChange={(e) => setName(e.target.value)}
             />
           </div>
-
+          {/* title */}
+          <div className="col-12">
+            <label className="form-label fw-semibold">
+              <i className="bi bi-person-fill me-2"></i>Title
+            </label>
+            <input
+              type="text"
+              className="form-control rounded-pill px-4 py-2"
+              placeholder="Software engineer"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+            />
+          </div>
           {/* Image */}
           <div className="col-12">
             <label className="form-label fw-semibold">
@@ -253,6 +315,62 @@ const AddEditResume = ({ resumeData, type }) => {
               />
             )}
           </div>
+
+          {/* email */}
+          <div className="col-12">
+            <label className="form-label fw-semibold">
+              <i className="bi bi-person-fill me-2"></i>Email
+            </label>
+            <input
+              type="email"
+              className="form-control rounded-pill px-4 py-2"
+              placeholder="example@gmail.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </div>
+
+          {/* adress */}
+          <div className="col-12">
+            <label className="form-label fw-semibold">
+              <i className="bi bi-person-fill me-2"></i>Address
+            </label>
+            <input
+              type="email"
+              className="form-control rounded-pill px-4 py-2"
+              placeholder="Hay El Hank Imm 14 NR 20, Casablanca"
+              value={address}
+              onChange={(e) => setAddress(e.target.value)}
+            />
+          </div>
+          {/* phone */}
+          <div className="col-12">
+            <label className="form-label fw-semibold">
+              <i className="bi bi-person-fill me-2"></i>Phone
+            </label>
+            <input
+              type="phone"
+              className="form-control rounded-pill px-4 py-2"
+              placeholder="+212 37463934"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+            />
+          </div>
+
+          {/* Link */}
+          <div className="col-12">
+            <label className="form-label fw-semibold">
+              <i className="bi bi-person-fill me-2"></i>Link
+            </label>
+            <input
+              type="text"
+              className="form-control rounded-pill px-4 py-2"
+              placeholder="portfolio-Yas.com"
+              value={link}
+              onChange={(e) => setLink(e.target.value)}
+            />
+          </div>
+
 
           {/* Date */}
           <div className="col-12 col-md-6">
@@ -309,6 +427,38 @@ const AddEditResume = ({ resumeData, type }) => {
               style={{ backgroundColor: "#6c5ce7", color: "white" }}
               className="btn  btn-sm rounded-pill"
               onClick={() => addItem(setExperience, '')}
+            >
+              ➕ Add Experience
+            </button>
+          </div>
+          {/* Project */}
+          <div className="col-12">
+            <label className="form-label fw-semibold">
+              <i className="bi bi-briefcase-fill me-2"></i>Project
+            </label>
+            {project.map((exp, index) => (
+              <div key={index} className="d-flex align-items-center gap-2 mb-2">
+                <input
+                  type="text"
+                  className="form-control rounded-pill px-4 py-2"
+                  placeholder="project"
+                  value={exp}
+                  onChange={(e) => handleProjectChange(index, e.target.value)}
+                />
+                <button
+                  type="button"
+                  className="btn btn-outline-danger btn-sm rounded-pill"
+                  onClick={() => setProject(project.filter((_, i) => i !== index))}
+                >
+                  <i className="bi bi-x-circle"></i>
+                </button>
+              </div>
+            ))}
+            <button
+              type="button"
+              style={{ backgroundColor: "#6c5ce7", color: "white" }}
+              className="btn  btn-sm rounded-pill"
+              onClick={() => addItem(setProject, '')}
             >
               ➕ Add Experience
             </button>
@@ -375,6 +525,38 @@ const AddEditResume = ({ resumeData, type }) => {
               style={{ backgroundColor: "#6c5ce7", color: "white" }}
               className="btn btn-sm rounded-pill"
               onClick={() => addItem(setSkills, '')}
+            >
+              ➕ Add Skill
+            </button>
+          </div>
+          {/* language */}
+          <div className="col-12">
+            <label className="form-label fw-semibold">
+              <i className="bi bi-stars me-2"></i>Languages
+            </label>
+            {language.map((lang, index) => (
+              <div key={index} className="d-flex align-items-center gap-2 mb-2">
+                <input
+                  type="text"
+                  className="form-control rounded-pill px-4 py-2"
+                  placeholder="language"
+                  value={lang}
+                  onChange={(e) => handleLanguage(index, e.target.value)}
+                />
+                <button
+                  type="button"
+                  className="btn btn-outline-danger btn-sm rounded-pill"
+                  onClick={() => setLanguage(language.filter((_, i) => i !== index))}
+                >
+                  <i className="bi bi-x-circle"></i>
+                </button>
+              </div>
+            ))}
+            <button
+              type="button"
+              style={{ backgroundColor: "#6c5ce7", color: "white" }}
+              className="btn btn-sm rounded-pill"
+              onClick={() => addItem(setLanguage, '')}
             >
               ➕ Add Skill
             </button>

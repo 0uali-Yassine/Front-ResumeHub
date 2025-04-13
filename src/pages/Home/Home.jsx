@@ -169,6 +169,7 @@ const Home = () => {
                                     role={userInfo.role}
                                     onEdit={() => handleShow("edit", resume)}
                                     onDelete={() => handleDelete(resume._id)}
+                                    resume={resume}
                                 />
                             </div>
                         ))}

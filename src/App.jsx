@@ -5,15 +5,18 @@ import Login from './pages/Login/Login'
 import SignUp from './pages/SignUp/SignUp'
 import Hero from './pages/hero/Hero'
 import Footer from './pages/footer/Footer'
+import PublicResume from './pages/resume/PublicResume'
 
 function App() {
-  const routes =(
+  
+  const routes = (
     <Router>
       <Routes>
-        <Route path="/"  element={<Hero />} />
-        <Route path="/login"  element={<Login />} />
-        <Route path="/dashboard"  element={<Home />} />
+        <Route path="/" element={<Hero />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/dashboard" element={<Home />} />
         <Route path="/signup" element={<SignUp />} />
+        <Route path="/view-resume/:id" element={<PublicResume />} />
       </Routes>
       <Footer />
     </Router>
